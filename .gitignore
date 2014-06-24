@@ -9,6 +9,7 @@
 /log/*.log
 /tmp
 /public/assets
+/public/system
 
 # Ignore other unneeded files.
 /app/assets/images
