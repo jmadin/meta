@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_action :signed_in_user, only: [:show, :index, :new, :edit, :update, :destroy]
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
 
   helper_method :sort_column, :sort_direction

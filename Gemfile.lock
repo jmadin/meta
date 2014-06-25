@@ -131,6 +131,7 @@ DEPENDENCIES
   bcrypt
   bootstrap-sass
   bootstrap-will_paginate
+  cocaine (~> 0.5.2)
   cocoon
   coffee-rails
   jbuilder

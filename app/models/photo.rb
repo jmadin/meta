@@ -5,8 +5,15 @@ class Photo < ActiveRecord::Base
   has_attached_file :photograph, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :photograph, :content_type => /\Aimage\/.*\Z/
   validates_attachment :photograph, :presence => true,
-    :content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] },
-    :size => { :in => 0..10000.kilobytes }
+    :content_type => { :content_type => ["image/jpeg", "image/gif", "image/png", "image/tiff"] }
+    # :styles => { :large => "700x400#", :medium=>"490x368#", :thumbnail=>"75x75#" }
+
+#     :size => { :in => 0..100000.kilobytes },
+
+ # :styles => {
+ #    :thumb => ["150x172#",:jpg],
+ #    :large => ["100%", :jpg]
+ #  }
 
   def self.search(search)
       if search

@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.1.0'
+ruby '2.1.2'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '~> 4.0.3'
@@ -11,6 +11,7 @@ gem 'will_paginate'#, '3.0.4'
 gem 'bootstrap-will_paginate'#, '0.0.9'
 gem 'sqlite3'#, '1.3.8'
 gem "paperclip", "~> 4.1"
+gem 'cocaine', '~> 0.5.2'
 
 group :development, :test do
 end
