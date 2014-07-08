@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:show, :index, :new, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:show, :index, :new, :destroy]
+  before_action :admin_user,     only: [:new, :destroy]
+
+  helper_method :sort_column, :sort_direction
 
   def index
     @users = User.paginate(page: params[:page])
@@ -9,6 +11,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @photos = @user.photos.where('photos.photo_filename LIKE ? OR photos.photo_term LIKE ? OR photos.photo_date LIKE ? OR photos.genus_species LIKE ? OR photos.photo_notes LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%").paginate(page: params[:page], per_page: 10)
+
   end
 
   def new
@@ -51,5 +55,12 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
+    def sort_column
+      Photo.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
     # Before filters
   end

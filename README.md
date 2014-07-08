@@ -17,6 +17,18 @@ The project was built on Michael Hartl's sample_app_rails_4 from github, using t
     $ rails generate migration AddAvatarColumnsToUsers user:references
     $ bundle exec rake db:migrate
 
+    $ rails generate migration AddCategoryToPhotos category:references
+    $ bundle exec rake db:migrate
+
+# Category
+
+    $ rails generate scaffold Categories category_name:string category_description:text
+    $ bundle exec rake db:migrate
+
+    $ rails generate migration AddAvatarColumnsToUsers user:references
+    $ bundle exec rake db:migrate
+
+
 # Outlines
 
     $ rails generate scaffold Outlines map:references substrate_type:string substrate_state:string outline_filename:string outliner_name:string outline_flag:string outline_area:decimal outline_perimeter:decimal outline_notes:text

@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Categories</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Photos</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td><%= link_to category.category_name, category %></td>
+            <td><%= category.category_description %></td>
+            <td><%= category.photos.size %></td>
+            <td style="width:150px;">
+              <div class="btn-group">
+                
+                <%= link_to 'Edit', edit_category_path(category), class: "btn btn-sm btn-default" %>
+              </div>
+              <% if signed_in? && current_user.admin? %>
+                <%= link_to 'X', category, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Category', new_category_path, class: "btn btn-primary" %>
+  </div>
+</div>
