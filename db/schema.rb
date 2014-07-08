@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624212325) do
+ActiveRecord::Schema.define(version: 20140708022130) do
+
+  create_table "categories", force: true do |t|
+    t.string   "category_name"
+    t.text     "category_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "photos", force: true do |t|
     t.string   "photo_category"
@@ -27,8 +34,10 @@ ActiveRecord::Schema.define(version: 20140624212325) do
     t.string   "photograph_content_type"
     t.integer  "photograph_file_size"
     t.datetime "photograph_updated_at"
+    t.integer  "category_id"
   end
 
+  add_index "photos", ["category_id"], name: "index_photos_on_category_id"
   add_index "photos", ["user_id"], name: "index_photos_on_user_id"
 
   create_table "users", force: true do |t|

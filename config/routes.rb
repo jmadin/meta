@@ -1,5 +1,7 @@
 Oldfield::Application.routes.draw do
 
+  resources :categories
+
   resources :photos
 
   resources :outlines

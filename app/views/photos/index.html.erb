@@ -7,7 +7,7 @@
         <div class="col-md-6">
           <%= form_tag photos_path, :method => 'get' do %>
             <div class="input-group">
-              <%= text_field_tag :search, params[:search], :placeholder => "Search photos...", class: "form-control" %>
+              <%= text_field_tag :search, params[:search], :placeholder => "Search all photos...", class: "form-control" %>
               <span class="input-group-btn">
                 <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
                 <%= link_to 'Reset', photos_path, class: "btn btn-default" %>
@@ -28,11 +28,11 @@
       <thead>
         <tr>
           <th></th>
-          <th><%= sortable "photo_category", "Category" %></th>
+          <th>Category</th>
           <th><%= sortable "photo_filename", "Filename" %></th>
           <th><%= sortable "photo_term", "Term" %></th>
-          <th><%= sortable "user", "Photographer" %></th>
-          <th><%= sortable "photo_date", "Taken" %></th>
+          <th><%= sortable "user_id", "Photographer" %></th>
+          <th><%= sortable "photo_date", "Year" %></th>
           <th><%= sortable "genus_species", "Taxonomy" %></th>
           <th></th>
         </tr>
@@ -42,11 +42,11 @@
         <% @photos.each do |photo| %>
           <tr>
             <td><%= link_to(image_tag(photo.photograph.url(:thumb)), image_path(photo.photograph.url(:original))) %></td>
-            <td><%= photo.photo_category %></td>
+            <td><%= link_to photo.category.category_name, "/categories/" + photo.category_id.to_s %></td>
             <td><%= photo.photo_filename %></td>
             <td><%= photo.photo_term %></td>
-            <td><%= photo.user.name %></td>
-            <td><%= photo.photo_date %></td>
+            <td><%= link_to photo.user.name, "/users/" + photo.user_id.to_s %></td>
+            <td><%= photo.photo_date.strftime("%Y") %></td>
             <td><%= photo.genus_species %></td>
             <td style="width:150px;">
               <div class="btn-group">

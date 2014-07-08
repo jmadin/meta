@@ -66,7 +66,7 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:photo_category, :photo_filename, :photo_term, :user_id, :photo_date, :genus_species, :photo_notes, :photograph)
+      params.require(:photo).permit(:photo_category, :photo_filename, :photo_term, :user_id, :photo_date, :genus_species, :photo_notes, :photograph, :category_id)
     end
 
     def sort_column
