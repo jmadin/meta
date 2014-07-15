@@ -12,17 +12,9 @@
   <div class="well">
     <div class="row">
       <div class="col-md-5">
-        Search by tag:
-      </div>
-      <div class="col-md-7">
-        Search by text:
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-5">
         <div id="tag_cloud">
           <% tag_cloud Photo.tag_counts.sort { |x, y| x.name <=> y.name }, %w{s m l} do |tag, css_class| %>
-            <%= link_to tag.name, tag_path(tag.name), class: css_class, class: "label label-primary"  %>
+            <%= link_to tag.name, tags_user_path(tag.name, :id => @user), class: css_class, class: "label label-primary"  %>
           <% end %>
         </div>
       </div>
@@ -64,7 +56,7 @@
           <td><%= link_to(image_tag(photo.photograph.url(:thumb)), image_path(photo.photograph.url(:original))) %></td>
           <td>
             <% photo.tag_list.each do |t| %>
-              <%= link_to t, tag_path(t), class: "label label-primary" %>
+              <%= link_to t, tags_user_path(t, :id => @user), class: "label label-primary" %>
             <% end %>
           </td>
           <td><%= photo.photo_filename %></td>

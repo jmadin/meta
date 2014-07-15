@@ -1,24 +1,15 @@
 Oldfield::Application.routes.draw do
 
-  resources :categories
 
   resources :photos
-
-  resources :outlines
-
-  resources :maps
-
-  resources :maps do
-    resources :outlines
-  end
 
   resources :users 
   
   resources :sessions,      only: [:new, :create, :destroy]
-  # resources :projects#,    only: [:create, :destroy, :show, :edit]
 
   get 'tags/:tag', to: 'photos#index', as: :tag
-  resources :photos
+  get 'tags_user/:tags_user', to: 'users#show', as: :tags_user
+
   # root to: 'photos#index'
   
   root to: 'static_pages#home'
