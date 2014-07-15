@@ -1,25 +1,19 @@
 <%= form_for(@photo) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <div class="form-group">
-    <%= f.label :photo_category %><%= link_to 'Add', new_category_path, class: "label label-default pull-right" %><br>
-    <%= collection_select :photo, :category_id, Category.all, :id, :category_name, { :include_blank => "Choose category..." }, class: "form-control" %> 
-  </div>
+
   <div class="form-group">
     <%= f.label :photo_filename %><br>
     <%= f.text_field :photo_filename, class: "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :photo_term %><br>
-    <%= f.text_field :photo_term, class: "form-control" %>
-  </div>
+
   <div class="form-group">
     <%= f.label :user_id %><br>
     <%= collection_select :photo, :user_id, User.all, :id, :name, { :selected => @photo.user_id }, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :photo_year %><br>
-    <%= f.date_select :photo_date, {:start_year => 1960, :discard_day => true, :discard_month => true}, class: "form-control" %>
+    <%= f.date_select :photo_date, {:start_year => 1960, :end_year => Time.now.year, :discard_day => true, :discard_month => true}, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :genus_species %><br>
@@ -28,6 +22,11 @@
   <div class="form-group">
     <%= f.label :photo_notes %><br>
     <%= f.text_area :photo_notes, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :tag_list, "Tags (separated by commas)" %><br>
+    <%= f.text_field :tag_list, class: "form-control" %>
   </div>
 
   <div class="form-group">

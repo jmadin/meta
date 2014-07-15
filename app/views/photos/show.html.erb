@@ -1,49 +1,48 @@
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-6">
 
-    <h2><%= @photo.photo_filename %></h2>
-    <p>
-      <strong>Photograph category:</strong>
-      <%= @photo.category.category_name %>
-    </p>
+        <h2><%= @photo.photo_filename %></h2>
 
-    <p>
-      <strong>Photograph term:</strong>
-      <%= @photo.photo_term %>
-    </p>
+      
+        <p>
+          <strong>Photographer:</strong>
+          <%= @photo.user.name %>
+        </p>
 
-    <p>
-      <strong>Photographer:</strong>
-      <%= @photo.user.name %>
-    </p>
+        <p>
+          <strong>Taken:</strong>
+          <%= @photo.photo_date.strftime("%Y") %>
+        </p>
 
-    <p>
-      <strong>Taken:</strong>
-      <%= @photo.photo_date %>
-    </p>
+        <p>
+          <strong>Genus species:</strong>
+          <%= @photo.genus_species %>
+        </p>
 
-    <% if !@photo.genus_species.blank? %>
-      <p>
-        <strong>Genus species:</strong>
-        <%= @photo.genus_species %>
-      </p>
-    <% end %>
+        <p>
+          <strong>Photograph notes:</strong>
+          <%= @photo.photo_notes %>
+        </p>
 
-    <p>
-      <strong>Photograph notes:</strong>
-      <%= @photo.photo_notes %>
-    </p>
+        <p>
+          <strong>Tags:</strong>
+          <%= raw @photo.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+        </p>
 
-    <div class="btn-group">
-      <%= link_to 'Edit', edit_photo_path(@photo), class: "btn btn-default" %>
-      <%= link_to 'Back', photos_path, class: "btn btn-default" %>
+        <div class="btn-group">
+          <%= link_to 'Edit', edit_photo_path(@photo), class: "btn btn-default" %>
+          <%= link_to 'Back', photos_path, class: "btn btn-default" %>
+        </div>
+
+      </div><br>
+      <div class="col-md-6">
+        <strong>Current photograph</strong><br>
+        <%= image_tag @photo.photograph.url(:medium) %><br>
+        <%= link_to "Download", image_path(@photo.photograph.url(:original)), class: "btn btn-default" %>
+
+      </div>
     </div>
-
-    <hr/>
-    <%= image_tag @photo.photograph.url(:medium) %>
-    <p>
-      <%= link_to "Download", image_path(@photo.photograph.url(:original)), class: "btn btn-default btn-primary" %>
-    </p>
-
   </div>
 </div>

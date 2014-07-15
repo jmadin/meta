@@ -1,39 +1,58 @@
-
 <% if @user.photos.empty? %>
 	<p class="alert alert-danger">No photos yet.</p>
 <% else %>
 
-  <div class="well">
-    <div class="row">
-      <div class="col-md-6">
-        <%= form_tag user_path(@user), :method => 'get' do %>
-          <div class="input-group">
-            <%= text_field_tag :search, params[:search], :placeholder => "Search photos by this photographer...", class: "form-control" %>
-            <span class="input-group-btn">
-              <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
-              <%= link_to 'Reset', user_path(@user), class: "btn btn-default" %>
-            </span>
-          </div>
-        <% end %>
-      </div>
-      <div class="col-md-6">
-        <%= link_to 'Add Photo', new_photo_path, class: 'btn btn-primary pull-right' %>
-      </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Photographs
+      <%= link_to 'Add Photo', new_photo_path, class: 'btn btn-primary pull-right' %></h1>
     </div>
   </div>
-        
+
+  <div class="well">
+    <div class="row">
+      <div class="col-md-5">
+        Search by tag:
+      </div>
+      <div class="col-md-7">
+        Search by text:
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <div id="tag_cloud">
+          <% tag_cloud Photo.tag_counts.sort { |x, y| x.name <=> y.name }, %w{s m l} do |tag, css_class| %>
+            <%= link_to tag.name, tag_path(tag.name), class: css_class, class: "label label-primary"  %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <%= form_tag user_path(@user), :method => 'get' do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], :placeholder => "Search text...", class: "form-control" %>
+            <span class="input-group-btn">
+              <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
+              
+            </span>
+          </div>
+      </div>
+        <div class="col-md-2">
+          <%= link_to 'Reset', user_path(@user), class: "btn btn-default pull-right" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <%= will_paginate @photos %>
 
   <table class="table">
     <thead>
       <tr>
         <th></th>
-        <th><%= sortable "photo_category", "Category" %></th>
+        <th>Tags</th>
         <th><%= sortable "photo_filename", "Filename" %></th>
-        <th><%= sortable "photo_term", "Term" %></th>
-        <th>Photographer</th>
+        <th><%= sortable "user_id", "Photographer" %></th>
         <th><%= sortable "photo_date", "Year" %></th>
-        <th><%= sortable "genus_species", "Taxonomy" %></th>
         <th></th>
       </tr>
     </thead>
@@ -41,13 +60,16 @@
     <tbody>
       <% @photos.each do |photo| %>
         <tr>
+
           <td><%= link_to(image_tag(photo.photograph.url(:thumb)), image_path(photo.photograph.url(:original))) %></td>
-          <td><%= photo.category.category_name %></td>
+          <td>
+            <% photo.tag_list.each do |t| %>
+              <%= link_to t, tag_path(t), class: "label label-primary" %>
+            <% end %>
+          </td>
           <td><%= photo.photo_filename %></td>
-          <td><%= photo.photo_term %></td>
-          <td><%= photo.user.name %></td>
+          <td><%= link_to photo.user.name, "/users/" + photo.user_id.to_s %></td>
           <td><%= photo.photo_date.strftime("%Y") %></td>
-          <td><%= photo.genus_species %></td>
           <td style="width:150px;">
             <div class="btn-group">
               <%= link_to 'Show', photo, class: "btn btn-sm btn-default" %>
@@ -65,3 +87,4 @@
   <%= will_paginate @photos %>
 
 <% end %>
+

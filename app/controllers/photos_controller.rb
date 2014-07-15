@@ -8,6 +8,11 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     @photos = Photo.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 10).search(params[:search])
+
+    if params[:tag]
+      @photos = @photos.tagged_with(params[:tag])
+    end
+
   end
 
   # GET /photos/1
@@ -30,7 +35,7 @@ class PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
 
     if @photo.save
-      redirect_to @photo
+      redirect_to photos_path
       flash[:success] = "Photo was successfully created."
     else
       render :new
@@ -41,7 +46,7 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1.json
   def update
     if @photo.update(photo_params)
-      redirect_to @photo
+      redirect_to photos_path
       flash[:success] = "Photo was successfully updated."
     else
       render :edit
@@ -66,7 +71,7 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:photo_category, :photo_filename, :photo_term, :user_id, :photo_date, :genus_species, :photo_notes, :photograph, :category_id)
+      params.require(:photo).permit(:photo_filename, :photo_term, :user_id, :photo_date, :genus_species, :photo_notes, :photograph, :category_id, :tag_list)
     end
 
     def sort_column

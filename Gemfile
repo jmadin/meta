@@ -12,6 +12,8 @@ gem 'bootstrap-will_paginate'#, '0.0.9'
 gem 'sqlite3'#, '1.3.8'
 gem "paperclip", "~> 4.1"
 gem 'cocaine', '~> 0.5.2'
+gem 'jquery-fileupload-rails'
+gem 'acts-as-taggable-on'
 
 group :development, :test do
 end

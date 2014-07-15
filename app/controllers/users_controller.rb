@@ -13,6 +13,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @photos = @user.photos.where('photos.photo_filename LIKE ? OR photos.photo_term LIKE ? OR photos.photo_date LIKE ? OR photos.genus_species LIKE ? OR photos.photo_notes LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%").paginate(page: params[:page], per_page: 10)
 
+    if params[:tag]
+      @photos = @photos.tagged_with(params[:tag])
+    end
+
   end
 
   def new

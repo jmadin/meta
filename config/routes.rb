@@ -16,6 +16,10 @@ Oldfield::Application.routes.draw do
   
   resources :sessions,      only: [:new, :create, :destroy]
   # resources :projects#,    only: [:create, :destroy, :show, :edit]
+
+  get 'tags/:tag', to: 'photos#index', as: :tag
+  resources :photos
+  # root to: 'photos#index'
   
   root to: 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
