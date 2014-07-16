@@ -6,7 +6,7 @@
     <div class="col-md-12">
       <h1>Photographs
       <%= link_to 'Add Photo', new_photo_path, class: 'btn btn-primary pull-right' %></h1>
-    </div><br>
+    </div>
   </div>
 
   <div class="well">
@@ -16,7 +16,7 @@
           <% tag_cloud Photo.tag_counts.sort { |x, y| x.name <=> y.name }, %w{s m l} do |tag, css_class| %>
             <%= link_to tag.name, tags_user_path(tag.name, :id => @user), class: css_class, class: "label label-primary"  %>
           <% end %>
-        </div>
+        </div><br>
       </div>
       <div class="col-md-5">
         <%= form_tag user_path(@user), :method => 'get' do %>
