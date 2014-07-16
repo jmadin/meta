@@ -35,7 +35,6 @@
     $ bundle exec rake assets:precompile RAILS_ENV=production RAILS_GROUPS=assets
     $ rails s -e production -p 3009
 
-
 # Production
 
     $ bundle exec rake db:migrate RAILS_ENV="production"
@@ -43,6 +42,8 @@
     $ bundle exec rake assets:precompile RAILS_ENV=production RAILS_GROUPS=assets
     $ rails s -e production -p 3003
 
-delete from outlines;
-delete from sqlite_sequence where name='outlines';
+delete from photos;
+delete from sqlite_sequence where name='photos';
 
+
+Photo.new({:user_id => 1, :photo_filename => "test", :photo_date => "2014-07-01", :genus_species => "", :photograph => File.new("/Users/jmadin/Desktop/test.png", "r")}).save

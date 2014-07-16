@@ -1,7 +1,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :user
-  validates :photo_filename, :presence => true
-  validates :tag_list, :presence => true
+  # validates :photo_filename, :presence => true
+  # validates :tag_list, :presence => true
 
   acts_as_taggable
 
