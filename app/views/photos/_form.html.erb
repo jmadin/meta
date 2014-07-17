@@ -1,6 +1,9 @@
 <%= form_for(@photo) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <% if params[:user] %>
+    <%= hidden_field_tag :user, params[:user] %>
+  <% end %>
 
   <div class="form-group">
     <%= f.label :photo_filename %><br>

@@ -62,8 +62,8 @@
           <td><%= photo.photo_date.strftime("%Y") %></td>
           <td style="width:150px;">
             <div class="btn-group">
-              <%= link_to 'Show', photo, class: "btn btn-sm btn-default" %>
-              <%= link_to 'Edit', edit_photo_path(photo), class: "btn btn-sm btn-default" %>
+              <%= link_to 'Show', photo_path(photo, :user => @user.id), class: "btn btn-sm btn-default" %>
+              <%= link_to 'Edit', edit_photo_path(photo, :user => @user.id), class: "btn btn-sm btn-default" %>
             </div>
             <% if signed_in? && current_user.admin? %>
               <%= link_to 'X', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default btn-danger" %>

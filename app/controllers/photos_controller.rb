@@ -46,7 +46,12 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1.json
   def update
     if @photo.update(photo_params)
-      redirect_to photos_path
+      if params[:user]
+        redirect_to user_path(params[:user])
+      else
+        redirect_to photos_path
+      end
+
       flash[:success] = "Photo was successfully updated."
     else
       render :edit
