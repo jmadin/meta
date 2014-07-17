@@ -11,7 +11,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :user_id %><br>
+    <%= f.label :photographer %><br>
     <%= collection_select :photo, :user_id, User.all, :id, :name, { :selected => @photo.user_id }, class: "form-control" %>
   </div>
   <div class="form-group">
