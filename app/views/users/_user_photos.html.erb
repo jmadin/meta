@@ -55,7 +55,7 @@
           <td><%= link_to(image_tag(photo.photograph.url(:thumb)), image_path(photo.photograph.url(:original))) %></td>
           <td>
             <% photo.tag_list.each do |t| %>
-              <%= link_to t, tags_user_path(t, :id => @user), class: "label label-primary" %>
+              <%= link_to t, tags_user_path(t, :id => @user), class: "label label-primary", :target => "_blank" %>
             <% end %>
           </td>
           <td><%= photo.photo_filename %></td>
