@@ -6,7 +6,7 @@
       <p>The Department of Biological Sciences photo archive.</p>
 
 			<% if !signed_in? %>
-        <%= link_to "Sign in", signin_path, class: "btn btn-lg btn-primary" %><br><%= link_to "Sign up", signup_path %>
+        <%= link_to "Sign in", signin_path, class: "btn btn-lg btn-primary" %><br><%= link_to "Sign up", signup_path %><br>
 			<% else %>
 		    <div class="row">
 		      <div class="col-lg-6">
@@ -31,14 +31,10 @@
 		    </div>
 		 	<% end %>
 		 	<br>
-	    <div class="row">
-	      <div class="col-md-12">
-	      	<% Photo.order("RANDOM()").limit(100).each do |photo| %>
-
-			      	<%= image_tag photo.photograph.url(:thumb) %>
-		      
-		      <% end %>
-			  </div>
+	    <div class="well well-sm">
+      	<% Photo.order("RANDOM()").limit(50).each do |photo| %>
+	      	<%= image_tag photo.photograph.url(:thumb) %>
+	      <% end %>
 			</div>  
     </div>
 
