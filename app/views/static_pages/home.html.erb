@@ -30,6 +30,16 @@
 		      </div>
 		    </div>
 		 	<% end %>
+		 	<br>
+	    <div class="row">
+	      <div class="col-md-12">
+	      	<% Photo.order("RANDOM()").limit(100).each do |photo| %>
+
+			      	<%= image_tag photo.photograph.url(:thumb) %>
+		      
+		      <% end %>
+			  </div>
+			</div>  
     </div>
 
   </div>
