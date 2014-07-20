@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:show, :index, :new, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:show, :index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: [:new, :destroy]
+  before_action :admin_user,     only: [:destroy]
 
   helper_method :sort_column, :sort_direction
 
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to Ita"
+      flash[:success] = "Welcome to Oldfield"
       redirect_to @user
     else
       render 'new'

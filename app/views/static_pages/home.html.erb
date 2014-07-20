@@ -3,8 +3,11 @@
 
     <div class="jumbotron">
       <h1>Oldfield<font style="color:orange;"></font></h1>
+      <p>The Department of Biological Sciences photo archive.</p>
 
-	    <% if signed_in? %>
+			<% if !signed_in? %>
+        <%= link_to "Sign in", signin_path, class: "btn btn-lg btn-primary" %><br><%= link_to "Sign up", signup_path %>
+			<% else %>
 		    <div class="row">
 		      <div class="col-lg-6">
 	          <div id="tag_cloud">

@@ -59,10 +59,12 @@
           <td style="width:150px;">
             <div class="btn-group">
               <%= link_to 'Show', photo_path(photo, :user => @user.id), class: "btn btn-sm btn-default" %>
-              <%= link_to 'Edit', edit_photo_path(photo, :user => @user.id), class: "btn btn-sm btn-default" %>
+              <% if (signed_in? && current_user == photo.user) | (signed_in? && current_user.admin?) %>
+                <%= link_to 'Edit', edit_photo_path(photo, :user => @user.id), class: "btn btn-sm btn-default" %>
+              <% end %>
             </div>
-            <% if signed_in? && current_user.admin? %>
-              <%= link_to 'X', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default btn-danger" %>
+            <% if (signed_in? && current_user == photo.user) | (signed_in? && current_user.admin?) %>
+              <%= link_to 'X', photo_path(photo, :user => @user.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default btn-danger" %>
             <% end %>
           </td>
         </tr>

@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-12">
         <h1>Photos
-        <%= link_to 'Add Photo', new_photo_path, class: 'btn btn-primary pull-right' %></h1>
+        <%= link_to 'Add Photo', new_photo_path, class: 'btn btn-lg btn-primary pull-right' %></h1>
       </div>
     </div><small>*Note that Tags and Search operate independently</small>
 
@@ -63,9 +63,11 @@
             <td style="width:150px;">
               <div class="btn-group">
                 <%= link_to 'Show', photo, class: "btn btn-sm btn-default" %>
-                <%= link_to 'Edit', edit_photo_path(photo), class: "btn btn-sm btn-default" %>
+                <% if (signed_in? && current_user == photo.user) | (signed_in? && current_user.admin?) %>
+                  <%= link_to 'Edit', edit_photo_path(photo), class: "btn btn-sm btn-default" %>
+                <% end %>
               </div>
-              <% if signed_in? && current_user.admin? %>
+              <% if (signed_in? && current_user == photo.user) | (signed_in? && current_user.admin?) %>
                 <%= link_to 'X', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default btn-danger" %>
               <% end %>
             </td>

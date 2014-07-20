@@ -9,6 +9,7 @@
           <th>Name</th>
           <th>Email</th>
           <th>Photos</th>
+          <th></th>
         </tr>
       </thead>
 
@@ -18,6 +19,11 @@
             <td><%= link_to user.name, user %></td>
             <td><%= user.email %></td>
             <td><%= user.photos.size %></td>
+            <td>
+              <% if current_user.admin %>
+                <%= user.admin %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

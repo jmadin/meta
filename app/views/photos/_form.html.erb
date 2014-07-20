@@ -12,7 +12,11 @@
 
   <div class="form-group">
     <%= f.label :photographer %><br>
+    <% if f.object.id.present? %>
     <%= collection_select :photo, :user_id, User.all, :id, :name, { :selected => @photo.user_id }, class: "form-control" %>
+    <% else %>
+    <%= collection_select :photo, :user_id, User.all, :id, :name, { :selected => current_user.id }, class: "form-control" %>
+    <% end %>
   </div>
   <div class="form-group">
     <%= f.label :year_taken %><br>
@@ -28,7 +32,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :tag_list, "Tags (separated by commas)" %><br>
+    <%= f.label :tag_list, "Tags (all lowercase, separated by commas)" %><br>
     <%= f.text_field :tag_list, class: "form-control" %>
   </div>
 
@@ -36,5 +40,5 @@
     <%= f.file_field :photograph, class: "form-control" %>
   </div>
 
-  <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+  <%= f.submit "Submit", class: "btn btn-lg btn-primary" %>
 <% end %>

@@ -20,8 +20,8 @@
       </div><br>
       <div class="col-md-6">
         
-        <strong>Current photograph</strong><br>
-        <%= image_tag @photo.photograph.url(:medium) %><br>
+        <strong>Current photograph:</strong><br>
+        <%= image_tag @photo.photograph.url(:medium) %><br><br>
         <%= link_to "Download", image_path(@photo.photograph.url(:original)), :target => "_blank", class: "btn btn-default" %>
 
       </div>

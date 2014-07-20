@@ -34,6 +34,8 @@
 
         config.assets.precompile += %w(*.tif *.png *.jpg *.jpeg *.gif)
 
+        ActsAsTaggableOn.force_lowercase = true
+        
         # config.paperclip_defaults = {:storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "", :fog_host => "localhost"}
 
       end
