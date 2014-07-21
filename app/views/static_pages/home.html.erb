@@ -31,12 +31,12 @@
 		    </div>
 		 	<% end %>
 		 	<br>
-	    <div class="well well-sm">
-      	<% Photo.order("RANDOM()").limit(50).each do |photo| %>
-	      	<%= image_tag photo.photograph.url(:thumb) %>
-	      <% end %>
-			</div>  
     </div>
+    <div class="well well-lg">
+    	<% Photo.order("RANDOM()").limit(50).each do |photo| %>
+      	<%= image_tag photo.photograph.url(:thumb) %>
+      <% end %>
+		</div>  
 
   </div>
 </div>  
