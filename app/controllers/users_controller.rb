@@ -27,13 +27,18 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to Oldfield"
-      redirect_to @user
-    else
-      render 'new'
-    end
+    # if @user.code == "e8b"
+      if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to Oldfield"
+        redirect_to @user
+      else
+        render 'new'
+      end
+   #  else
+   #    flash.now[:danger] = "You need the code from the HoD."
+   #    render 'new'
+   # end
   end
 
   def edit
@@ -58,7 +63,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :code)
     end
 
     def sort_column
