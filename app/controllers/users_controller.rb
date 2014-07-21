@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.all
   end
 
   def show
