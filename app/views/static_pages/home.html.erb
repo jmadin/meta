@@ -32,7 +32,7 @@
 		 	<% end %>
 		 	<br>
     </div>
-    <div class="well well-lg">
+    <div class="well well-lg" style="background-color: #111;">
     	<% Photo.order("RANDOM()").limit(50).each do |photo| %>
       	<%= image_tag photo.photograph.url(:thumb) %>
       <% end %>
