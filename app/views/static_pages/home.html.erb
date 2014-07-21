@@ -28,7 +28,7 @@
 		 	<% end %>
     </div>
     <div class="well well-lg" style="background-color: #222;">
-    	<% Photo.order("RANDOM()").limit(35).each do |photo| %>
+    	<% Photo.order("RANDOM()").limit(50).each do |photo| %>
       	<%= link_to image_tag(photo.photograph.url(:thumb)), photo_path(photo) %>
       <% end %>
 		</div>  
