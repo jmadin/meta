@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :signed_in_user, only: [:index]
   before_action :correct_user,   only: [:edit, :update]
   before_action :convenor_user,  only: [:show, :index]
   before_action :admin_user,     only: [:destroy]
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    # if @user.code == "e8b"
+    if @user.code == "peaches"
       if @user.save
         sign_in @user
         flash[:success] = "Welcome to Meta"
@@ -28,10 +29,10 @@ class UsersController < ApplicationController
       else
         render 'new'
       end
-   #  else
-   #    flash.now[:danger] = "You need the code from the HoD."
-   #    render 'new'
-   # end
+    else
+      flash.now[:danger] = "You need the code from the HoD."
+      render 'new'
+    end
   end
 
   def edit
