@@ -1,0 +1,63 @@
+<%= form_for(@dataset) do |f| %>
+  <%= render 'shared/error_messages', object: @dataset %>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>  
+  
+  <h4>Meta-data</h4>
+  <div class="form-group">
+    <%= f.label :unit_id %><br>
+    <%= f.select :unit_id, Unit.all.collect {|a| ["#{a.unit_code}, #{a.unit_name}", a.id]}, {:selected => @dataset.unit_id}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :project_name %>
+    <%= f.text_field :project_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :project_date %><br>
+    <%= f.date_select :project_date, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :project_location %>
+    <%= f.text_field :project_location, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :latitude %>
+    <%= f.text_field :latitude, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :longitude %>
+    <%= f.text_field :longitude, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :methods %>
+    <%= f.text_area :methods, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :missing_data %>
+    <%= f.text_field :missing_data, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :project_notes %>
+    <%= f.text_area :project_notes, class: "form-control" %>
+  </div>
+
+  <h4>Column Headers</h4>
+  <p>Enter the name, unit and a little description for each column in your dataset.  Make sure that the column names match those in your dataset.</p>
+  <%= f.fields_for :headers do |header| %>
+    <%= render "header_fields", :f => header %>
+  <% end %>
+  <div class="links">
+    <%= link_to_add_association "Add Header", f, :headers %>
+  </div>
+  <br>
+  <h4>Data</h4>
+  <p>Copy and paste comma delimited text in here.</p>
+  <div class="form-group">
+    <%= f.text_area :data, :rows => 10, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+

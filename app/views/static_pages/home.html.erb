@@ -2,35 +2,10 @@
   <div class="col-md-10 col-md-offset-1">
 
     <div class="jumbotron">
-      <h1>Oldfield<font style="color:orange;"></font></h1>
-      <p>The Department of Biological Sciences photo archive.</p>
+			<h1>Meta<font style="color:orange;">-data</font></h1>
 
-			<% if signed_in? %>
-		    <div class="row">
-		      <div class="col-md-6">
-	          <div id="tag_cloud">
-	            <% tag_cloud Photo.tag_counts.sort { |x, y| x.name <=> y.name }, %w{s m l} do |tag, css_class| %>
-	              <%= link_to tag.name, tag_path(tag.name), class: css_class, class: "label label-primary"  %>
-	            <% end %>
-	          </div><br>
-		      </div>
-		      <div class="col-md-6">
-		        <%= form_tag photos_path, :method => 'get' do %>
-		          <div class="input-group">
-		            <%= text_field_tag :search, params[:search], :placeholder => "Search text...", class: "form-control" %>
-		            <span class="input-group-btn">
-		              <%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
-		            </span>
-		          </div>
-		        <% end %>
-		      </div>
-		    </div>
-		 	<% end %>
-    </div>
-    <div class="well well-lg" style="background-color: #222;">
-    	<% Photo.order("RANDOM()").limit(50).each do |photo| %>
-      	<%= link_to image_tag(photo.photograph.url(:thumb)), photo_path(photo) %>
-      <% end %>
+			<br>
+				<p>Student meta-data training system.</p>
 		</div>  
 
   </div>

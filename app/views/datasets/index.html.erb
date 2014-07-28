@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Datasets</h1>
+
+    <% if @datasets.empty? %>
+      <h2>No results</h2>
+    <% else %>
+      <table class="table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Unit</th>
+          <th>Project name</th>
+          <th>Project date</th>
+          <th>Project location</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @datasets.each do |dataset| %>
+          <tr>
+            <td><%= dataset.user.first_name %> <%= dataset.user.last_name %></td>
+            <td><%= dataset.unit.unit_code %></td>
+            <td><%= dataset.project_name %></td>
+            <td><%= dataset.project_date %></td>
+            <td><%= dataset.project_location %></td>
+            <td>
+              <div class="btn-group">
+                <%= link_to 'Show', dataset, class: "btn btn-sm btn-default" %>
+                <% if (signed_in? && current_user == dataset.user) | (signed_in? && current_user.admin?) %>
+                  <%= link_to 'Edit', edit_dataset_path(dataset), class: "btn btn-sm btn-default" %>
+                  <%= link_to 'Delete', dataset, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+
+    <br>
+
+    <%= link_to 'New Dataset', new_dataset_path, class: "btn btn-primary" %>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<%= form_for(@unit) do |f| %>
+  <%= render 'shared/error_messages', object: @unit %>
+
+  <div class="form-group">
+    <%= f.label :convenor %><br>
+    <%#= f.text_field :user_id %>
+    <%= f.select :user_id, User.where(:convenor => true).collect {|a| ["#{a.first_name} #{a.last_name}", a.id]}, {:selected => @unit.user_id}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unit_name %><br>
+    <%= f.text_field :unit_name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unit_code %><br>
+    <%= f.text_field :unit_code, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unit_description %><br>
+    <%= f.text_area :unit_description, class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,12 +1,10 @@
 source 'http://rubygems.org'
 ruby '2.1.2'
-#ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '~> 4.0.3'
 gem 'bootstrap-sass'#, '2.3.2.0'
 gem 'bcrypt'#, '3.1.2'
 gem 'cocoon'#, github: 'nathanvda/cocoon'
-# gem 'faker', '1.1.2'
 gem 'will_paginate'#, '3.0.4'
 gem 'bootstrap-will_paginate'#, '0.0.9'
 gem 'sqlite3'#, '1.3.8'
@@ -33,7 +31,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'jquery-turbolinks'
 
 group :doc do
-  gem 'sdoc', '0.3.20', require: false
+  # gem 'sdoc', '0.3.20', require: false
 end
 
 group :production do

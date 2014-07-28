@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+    <h3><%= @dataset.project_name %></h3>
+
+  <div class="row">
+    <div class="col-md-6">
+
+    <p>
+      <strong>Data owner:</strong>
+      <%= @dataset.user.first_name %> <%= @dataset.user.last_name %>
+    </p>
+
+    <p>
+      <strong>Contact email:</strong>
+      <%= mail_to @dataset.user.email %>
+    </p>
+
+    <p>
+      <strong>Unit:</strong>
+      <%= @dataset.unit.unit_code %>, <%= @dataset.unit.unit_name%>
+    </p>
+
+    <p>
+      <strong>Project date:</strong>
+      <%= @dataset.project_date.strftime("%B %d, %Y") %>
+    </p>
+
+    <p>
+      <strong>Methods:</strong>
+      <%= @dataset.methods %>
+    </p>
+
+    <p>
+      <strong>Missing data:</strong>
+      <%= @dataset.missing_data %>
+    </p>
+
+    <p>
+      <strong>Project notes:</strong>
+      <%= @dataset.project_notes %>
+    </p>
+    </div>
+    <div class="col-md-6">
+
+    <p>
+      <strong>Project location:</strong>
+      <%= @dataset.project_location %>
+    </p>
+
+    <p>
+      <strong>Project latitude:</strong>
+      <%= @dataset.latitude %>
+    </p>
+
+    <p>
+      <strong>Project longitude:</strong>
+      <%= @dataset.longitude %>
+    </p>
+
+      <div id="map-canvas" class="map-container"></div> 
+
+    </div>
+    </div>
+
+    <p>
+    <% if current_user == @dataset.user %>
+      <%= link_to 'Edit', edit_dataset_path(@dataset), class: "btn btn-sm btn-default" %> |
+    <% end %>
+    <%= link_to 'Back', datasets_path, class: "btn btn-sm btn-default" %>
+    </p>
+
+    <h3>Column headers</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Unit</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for header in @dataset.headers %>
+        <tr>
+          <td><%= h header.header_name %></td>
+          <td><%= h header.header_unit %></td>
+          <td><%= h header.header_notes %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h3>Data</h3>
+
+    <% if @dataset.data.blank? %>
+      <h2>No Data</h2>
+    <% else %>
+      <% if current_user== @dataset.user || current_user.admin? %>
+        <p>Download data as <%= link_to "CSV", dataset_path(@dataset, format: "csv") %></p>
+      <% end %>
+
+      <% mark=0 %>
+      <% disp=0 %>
+      <% @dat = CSV.parse(@dataset.data)  %>
+
+      <table class="table">
+      <% temp = 1 %>
+      <% @dat.each do |row| %>
+        <tr>
+        <% row.each do |cell| %>
+          <% if mark==0 %><th><% else %><td><% end %>
+          <%= cell %>
+          <% if mark==0 %></th><% else %></td><% end %>
+        <% end %>
+        </tr>
+        <% mark=1 %>
+        <% if temp==6 %><% disp=row.size %><% break %><% end %>
+        <% temp=temp+1 %>
+      <% end %>
+      <% if disp>0 %>
+        <tr><td colspan=<%= disp %> style="text-align:center;">Not all data displayed</td></tr>  
+      <% end %>
+      </table>
+      
+    <% end %>
+      
+  </div>
+</div>
+
+<script type="text/javascript"> 
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(<%= @dataset.latitude %>, <%= @dataset.longitude %>); 
+    var mapOptions = {
+      zoom: 13,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.SATELLITE,
+      streetViewControl: false
+    }
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map
+    });
+  
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script> 

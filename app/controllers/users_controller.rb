@@ -1,24 +1,17 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:show, :index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
+  before_action :convenor_user,  only: [:show, :index]
   before_action :admin_user,     only: [:destroy]
 
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.all.sort_by { |x| x.photos.size }.reverse
+    @users = User.all
   end
 
   def show
     @user = User.find(params[:id])
-    @photos = @user.photos.where('photos.photo_filename LIKE ? OR photos.photo_date LIKE ? OR photos.genus_species LIKE ? OR photos.photo_notes LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
-
-    if params[:tags_user]
-      @photos = @photos.tagged_with(params[:tags_user])
-    end
-
-    @photos = @photos.order(sort_column + " " + sort_direction).paginate(page: params[:page], per_page: 10).search(params[:search])
-
+    @datasets = Dataset.where(:user_id => @user.id).paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -30,7 +23,7 @@ class UsersController < ApplicationController
     # if @user.code == "e8b"
       if @user.save
         sign_in @user
-        flash[:success] = "Welcome to Oldfield"
+        flash[:success] = "Welcome to Meta"
         redirect_to @user
       else
         render 'new'
@@ -63,7 +56,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :code)
+      params.require(:user).permit(:first_name, :last_name, :student_number, :email, :password, :password_confirmation, :admin, :convenor, :code)
     end
 
     def sort_column

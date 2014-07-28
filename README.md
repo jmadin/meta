@@ -1,28 +1,27 @@
 ## Oldfield
 
-# Photo
+# Datasets
 
-    $ rails generate scaffold Photos user:references photo_filename:string photo_date:date genus_species:string photo_notes:text
+    $ rails generate scaffold Datasets user:references unit:references project_name:string project_date:date project_location:string latitude:decimal longitude:decimal methods:text missing_data:string project_notes:text
+    $ bundle exec rake db:migrate
+
+rails generate migration AddDataToDatasets data:text
+bundle exec rake db:migrate
+
+rails generate migration AddConvenorToUsers convenor:boolean
+bundle exec rake db:migrate
+
+
+# headers
+
+    $ rails generate scaffold Header dataset:references header_name:string header_unit:string header_notes:text 
     $ bundle exec rake db:migrate
 
 
-    $ rails generate migration AddCategoryToPhotos category:references
+# Unit
+
+    $ rails generate scaffold Units user:references unit_name:string unit_code:string unit_description:text
     $ bundle exec rake db:migrate
-
-# Category
-
-    $ rails generate scaffold Categories category_name:string category_description:text
-    $ bundle exec rake db:migrate
-
-
-# Photo Category
-
-    $ rails generate scaffold Photos_Categories photo:references category:references
-    $ bundle exec rake db:migrate
-
-
-
-
 
 
 # Setup

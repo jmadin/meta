@@ -1,4 +1,4 @@
-Oldfield::Application.configure do
+Meta::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -24,4 +24,5 @@ Oldfield::Application.configure do
 
   # Debug mode disables concatenation and preprocessing of assets.
   config.assets.debug = true
+  
 end

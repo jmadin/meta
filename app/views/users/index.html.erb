@@ -1,14 +1,14 @@
 
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h1>Photographers</h1>
+    <h1>People</h1>
 
     <table class="table">
       <thead>
         <tr>
           <th>Name</th>
           <th>Email</th>
-          <th>Photos</th>
+          <th>Datasets</th>
           <th></th>
         </tr>
       </thead>
@@ -16,9 +16,9 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= link_to user.name, user %></td>
+            <td><%= link_to "#{user.first_name} #{user.last_name}", user %></td>
             <td><%= user.email %></td>
-            <td><%= user.photos.size %></td>
+            <td><%= user.datasets.size %></td>
             <td>
               <% if current_user.admin %>
                 <%= user.admin %>

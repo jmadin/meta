@@ -1,0 +1,33 @@
+<%= form_for(@header) do |f| %>
+  <% if @header.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@header.errors.count, "error") %> prohibited this header from being saved:</h2>
+
+      <ul>
+      <% @header.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dataset_id %><br>
+    <%= f.text_field :dataset_id %>
+  </div>
+  <div class="field">
+    <%= f.label :header_name %><br>
+    <%= f.text_field :header_name %>
+  </div>
+  <div class="field">
+    <%= f.label :header_unit %><br>
+    <%= f.text_field :header_unit %>
+  </div>
+  <div class="field">
+    <%= f.label :header_notes %><br>
+    <%= f.text_area :header_notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

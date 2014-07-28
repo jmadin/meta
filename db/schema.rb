@@ -11,63 +11,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140715090606) do
+ActiveRecord::Schema.define(version: 20140728000124) do
 
-  create_table "categories", force: true do |t|
-    t.string   "category_name"
-    t.text     "category_description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "photos", force: true do |t|
-    t.string   "photo_category"
-    t.string   "photo_filename"
-    t.string   "photo_term"
+  create_table "datasets", force: true do |t|
     t.integer  "user_id"
-    t.date     "photo_date"
-    t.string   "genus_species"
-    t.text     "photo_notes"
+    t.integer  "unit_id"
+    t.string   "project_name"
+    t.date     "project_date"
+    t.string   "project_location"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.text     "methods"
+    t.string   "missing_data"
+    t.text     "project_notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "photograph_file_name"
-    t.string   "photograph_content_type"
-    t.integer  "photograph_file_size"
-    t.datetime "photograph_updated_at"
-    t.integer  "category_id"
+    t.text     "data"
   end
 
-  add_index "photos", ["category_id"], name: "index_photos_on_category_id"
-  add_index "photos", ["user_id"], name: "index_photos_on_user_id"
+  add_index "datasets", ["unit_id"], name: "index_datasets_on_unit_id"
+  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
 
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
+  create_table "headers", force: true do |t|
+    t.integer  "dataset_id"
+    t.string   "header_name"
+    t.string   "header_unit"
+    t.text     "header_notes"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "headers", ["dataset_id"], name: "index_headers_on_dataset_id"
 
-  create_table "tags", force: true do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
+  create_table "units", force: true do |t|
+    t.integer  "user_id"
+    t.string   "unit_name"
+    t.string   "unit_code"
+    t.text     "unit_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+  add_index "units", ["user_id"], name: "index_units_on_user_id"
 
   create_table "users", force: true do |t|
-    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "student_number"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin"
+    t.boolean  "convenor"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

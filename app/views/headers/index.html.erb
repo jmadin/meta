@@ -1,0 +1,33 @@
+<h1>Listing headers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dataset</th>
+      <th>Header name</th>
+      <th>Header unit</th>
+      <th>Header notes</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @headers.each do |header| %>
+      <tr>
+        <td><%= header.dataset %></td>
+        <td><%= header.header_name %></td>
+        <td><%= header.header_unit %></td>
+        <td><%= header.header_notes %></td>
+        <td><%= link_to 'Show', header %></td>
+        <td><%= link_to 'Edit', edit_header_path(header) %></td>
+        <td><%= link_to 'Destroy', header, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Header', new_header_path %>

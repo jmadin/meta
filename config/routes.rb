@@ -1,7 +1,11 @@
-Oldfield::Application.routes.draw do
+Meta::Application.routes.draw do
 
 
-  resources :photos
+  resources :headers
+
+  resources :units
+
+  resources :datasets
 
   resources :users 
   

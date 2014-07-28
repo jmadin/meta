@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dataset:</strong>
+  <%= @header.dataset %>
+</p>
+
+<p>
+  <strong>Header name:</strong>
+  <%= @header.header_name %>
+</p>
+
+<p>
+  <strong>Header unit:</strong>
+  <%= @header.header_unit %>
+</p>
+
+<p>
+  <strong>Header notes:</strong>
+  <%= @header.header_notes %>
+</p>
+
+<%= link_to 'Edit', edit_header_path(@header) %> |
+<%= link_to 'Back', headers_path %>

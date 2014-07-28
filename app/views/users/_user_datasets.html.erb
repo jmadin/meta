@@ -1,0 +1,44 @@
+<% if @user.datasets.empty? %>
+	<p class="alert alert-danger">No datasets yet.</p>
+<% else %>
+
+
+  <%= will_paginate @datasets %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Dataset name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @datasets.each do |dataset| %>
+        <tr>
+          <td><%= dataset.project_name %></td>
+          <td><%= link_to dataset.user.last_name, "/users/" + dataset.user_id.to_s %></td>
+          <td><%= dataset.project_date.strftime("%Y") %></td>
+          <td style="width:150px;">
+            <div class="btn-group">
+              <%= link_to 'Show', dataset_path(dataset, :user => @user.id), class: "btn btn-sm btn-default" %>
+              <% if (signed_in? && current_user == dataset.user) | (signed_in? && current_user.admin?) %>
+                <%= link_to 'Edit', edit_dataset_path(dataset, :user => @user.id), class: "btn btn-sm btn-default" %>
+              <% end %>
+            </div>
+            <% if (signed_in? && current_user == dataset.user) | (signed_in? && current_user.admin?) %>
+              <%= link_to 'X', dataset_path(dataset, :user => @user.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default btn-danger" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate @datasets %>
+
+<% end %>
+

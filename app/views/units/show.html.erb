@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+
+		<h1>
+		  <%= @unit.unit_code %>, <%= @unit.unit_name %>
+		</h1>
+
+		<p>
+		  <strong>Convenor:</strong>
+		  <%= @unit.user.first_name %> <%= @unit.user.last_name %>
+		</p>
+
+		<p>
+		  <strong>Unit description:</strong>
+		  <%= @unit.unit_description %>
+		</p>
+
+		<%= link_to 'Edit', edit_unit_path(@unit) %> |
+		<%= link_to 'Back', units_path %>
+
+
+    <%= render "unit_datasets" %>
+
+	</div>
+</div>

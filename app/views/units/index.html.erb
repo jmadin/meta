@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Units</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Unit name</th>
+          <th>Unit code</th>
+          <th>Convenor</th>
+          <th>Datasets</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @units.each do |unit| %>
+          <tr>
+            <td><%= unit.unit_name %></td>
+            <td><%= unit.unit_code %></td>
+            <td><%= unit.user.first_name %> <%= unit.user.last_name %></td>
+            <td><%= unit.datasets.size %></td>
+            <td>
+              <div class="btn-group">
+                <% if (signed_in? && current_user == unit.user) | (signed_in? && current_user.admin?) %>
+                  <%= link_to 'Show', unit, class: "btn btn-sm btn-default" %>
+                  <%= link_to 'Edit', edit_unit_path(unit), class: "btn btn-sm btn-default" %>
+                  <%= link_to 'Delete', unit, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+                <% end %>
+              </div>
+            </td>
+
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <% if (signed_in? && current_user.convenor?) %>
+      <%= link_to 'New Unit', new_unit_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
